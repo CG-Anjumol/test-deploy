@@ -21,8 +21,4 @@ node {
             bat 'npm run build'
         }
     }
-
-    stage('Run Application') {
-        bat 'run_app.bat'
-    }
 }
