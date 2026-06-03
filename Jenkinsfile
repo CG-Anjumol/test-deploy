@@ -21,18 +21,25 @@ node {
     }
 
     stage('Frontend Setup') {
-        dir('frontend') {
-            bat 'npm install'
-        }
+    dir('frontend') {
+        bat 'npm install'
     }
+}
 
-    stage('Run Frontend') {
-        dir('frontend') {
-            bat '''
-            taskkill /F /IM node.exe || echo not running
-            start /B npm start
-            exit 0
-            '''
-        }
+stage('Build Frontend') {
+    dir('frontend') {
+        bat 'npm run build'
     }
+}
+
+stage('Run Frontend') {
+    dir('frontend') {
+        bat '''
+        taskkill /F /IM node.exe || echo not running
+        start /B npx serve -s build -l 3000
+        exit 0
+        '''
+    }
+}
+
 }
